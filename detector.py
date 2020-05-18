@@ -3,10 +3,10 @@ import cv2
 
 def read_clip_mono(path):
     cap = cv2.VideoCapture(path)
-    clip_buf=[]
+    clip_buf = []
     while cap.isOpened():
         ret, frame = cap.read()
-        if ret is False:
+        if not ret:
             break 
         mono = frame[:,:,1]
         clip_buf.append(mono)
