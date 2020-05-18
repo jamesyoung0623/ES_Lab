@@ -12,16 +12,6 @@ def read_clip_mono(path):
         clip_buf.append(mono)
     return clip_buf
 
-def read_clip_rgb(path):
-    cap = cv2.VideoCapture(path)
-    clip_buf=[]
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if ret is False:
-            break 
-        clip_buf.append(frame)
-    return clip_buf
-
 class BlobDetector(object):
     def __init__(self, frame, hist=500, thres=16, kr=3):
         #maybe for use to detect only RoI in future
