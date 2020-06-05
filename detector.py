@@ -16,7 +16,7 @@ class BlobDetector(object):
     def __init__(self, frame, hist=500, thres=16, kr=3):
         #maybe for use to detect only RoI in future
         self.roi = self.cut_roi(frame)
-        self.H, self.W = self.roi.shape 
+        #self.H, self.W = self.roi.shape 
         #background subtractor
         self.fgbg = cv2.createBackgroundSubtractorMOG2(history=hist, varThreshold=thres, detectShadows=False) 
         #define kernel
@@ -26,7 +26,7 @@ class BlobDetector(object):
         self.blob_detector = cv2.SimpleBlobDetector_create(blob_params)
 
     def cut_roi(self, img):
-        return img[0:540,0:720]
+        return img[0:480,0:640]
 
     def get_foreground(self, frame):
         fgmask = self.fgbg.apply(frame)  
@@ -36,12 +36,12 @@ class BlobDetector(object):
     def set_blob_params(self):
         params = cv2.SimpleBlobDetector_Params()
         # Change thresholds 
-        params.minThreshold = 10;
-        params.maxThreshold = 100;
+        params.minThreshold = 0;
+        params.maxThreshold = 200;
         # Filter by Area.
         params.filterByArea = True
-        params.minArea = 250    
-        params.maxArea = 650
+        params.minArea = 150    
+        params.maxArea = 1000
         
         params.filterByConvexity = False
         params.filterByColor = False
@@ -57,14 +57,19 @@ class BlobDetector(object):
         if keypoints:
             cv2.waitKey(0)
         else:
-            cv2.waitKey(1)
+            CV2.waitKey(1)
+    
+    def detect_keypoint(self, frame):
+        inv_img = cv2.bitwise_not(frame)
+        keypoints = self.blob_detector.detect(inv_img)
+        frame = cv2.drawKeypoints(frame, keypoints, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+        cv2.imshow('hello', frame)
+        cv2.waitKey(1)
+        return keypoints
 
     def demo_video(self, clip):
         for i in range(len(clip)):
             fgmask = self.get_foreground(clip[i])
             self.draw_keypoint(fgmask)                
 
-clip = read_clip_mono('test.mp4')
-detector = BlobDetector(clip[0])
-detector.demo_video(clip)
 
