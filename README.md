@@ -1,12 +1,11 @@
 # ES_Lab
 NTUEE ES lab 2020 spring final project
 ### Usage
-+ Run
-For the photoresistor version 
++ For the photoresistor version 
     ```bash
     python3 photoresistor.py
     ```
-For the canera version
++ For the canera version
     ```bash
     python3 camera.py
     ```
