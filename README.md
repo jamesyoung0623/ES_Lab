@@ -2,7 +2,12 @@
 NTUEE ES lab 2020 spring final project
 ### Usage
 + Run
+For the photoresistor version 
     ```bash
-    python3 detector.py
+    python3 photoresistor.py
     ```
-The program will stop when keypoints are detected, press any key to continue
+For the canera version
+    ```bash
+    python3 camera.py
+    ```
+
