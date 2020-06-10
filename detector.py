@@ -40,7 +40,7 @@ class BlobDetector(object):
         params.maxThreshold = 200;
         # Filter by Area.
         params.filterByArea = True
-        params.minArea = 150    
+        params.minArea = 110    
         params.maxArea = 1000
         
         params.filterByConvexity = False

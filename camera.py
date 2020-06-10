@@ -13,7 +13,7 @@ servo_1.start(0)
 servo_2.start(0)
 
 def change(index, duty):
-#    servo_1.ChangeDutyCycle(duty)
+    # servo_1.ChangeDutyCycle(duty)
     if index == 1:
         servo_1.ChangeDutyCycle(duty)
     elif index == 2:
@@ -27,19 +27,23 @@ try:
         if ret == True:
             detector = BlobDetector(frame)
             keypoints = detector.detect_keypoint(frame)
+            
             for kp in keypoints:
                 tree_x = kp.pt[0]
-                if tree_x < 440 and tree_x > 400:
+                # should be adjusted according to camera situation
+                if tree_x < 450 and tree_x > 329:
                     print('jump', tree_x)
-                    change(1,4)
-                    time.sleep(0.2)
+                    change(1,9)
+                    time.sleep(0.08)
                     change(1,2)
                     break
-
+       
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
+
 except KeyboardInterrupt:
     pass
+
 finally:
     change(1, 2)
     change(2, 2)
