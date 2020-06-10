@@ -45,7 +45,6 @@ class BlobDetector(object):
         
         params.filterByConvexity = False
         params.filterByColor = False
-        params.filterByConvexity = False
         params.filterByInertia = False
         return params
 
